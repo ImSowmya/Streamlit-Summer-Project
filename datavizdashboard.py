@@ -17,8 +17,15 @@ def main():
         file_extension = os.path.splitext(uploaded_file.name)[1].lower()
         if file_extension == ".csv":
             data = pd.read_csv(uploaded_file)
-        else:
+        elif file_extension==".xlsx":
             data=pd.read_excel(uploaded_file)
-            
+
+        # Data Summary and Statistics
+        st.header("Data Summary")
+        st.write(data.head())
+
+        st.header("Basic Statistics")
+        st.write(data.describe())
+
 if __name__ == "__main__":
     main()
