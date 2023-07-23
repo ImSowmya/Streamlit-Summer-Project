@@ -41,6 +41,9 @@ def main():
                 fig = px.line(data, x=i, y=i, title=f"Line Chart of {i}")
             elif plot == "Scatter Plot":
                 fig = px.scatter(data, x=i, y=i, title=f"Scatter Plot of {i}")
+        
+        
+        st.plotly_chart(fig)
 
 if __name__ == "__main__":
     main()
