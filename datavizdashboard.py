@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import plotly.express as px
 import seaborn as sns
 import streamlit as st
 import os
@@ -26,6 +27,20 @@ def main():
 
         st.header("Basic Statistics")
         st.write(data.describe())
+
+        # Data Visualization
+        st.header("Data Visualization")
+        i = st.sidebar.selectbox("Select a column to visualize",list(data.columns),index=0)
+        plt.figure()
+        if data[i].dtype == np.number:
+            #For numerical columns, create a histogram
+            plot=st.sidebar.selectbox("Select the chart type ",["Histogram",'Line Chart',"Scatter Plot"],index=0)
+            if plot=="Histogram":
+                fig = px.histogram(data, x=i, title=f"Histogram of {i}")
+            elif plot == "Line Chart":
+                fig = px.line(data, x=i, y=i, title=f"Line Chart of {i}")
+            elif plot == "Scatter Plot":
+                fig = px.scatter(data, x=i, y=i, title=f"Scatter Plot of {i}")
 
 if __name__ == "__main__":
     main()
