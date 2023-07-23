@@ -33,7 +33,7 @@ def main():
         i = st.sidebar.selectbox("Select a column to visualize",list(data.columns),index=0)
         plt.figure()
         if data[i].dtype == np.number:
-            #For numerical columns, create a histogram
+            #For numerical columns
             plot=st.sidebar.selectbox("Select the chart type ",["Histogram",'Line Chart',"Scatter Plot"],index=0)
             if plot=="Histogram":
                 fig = px.histogram(data, x=i, title=f"Histogram of {i}")
@@ -41,7 +41,13 @@ def main():
                 fig = px.line(data, x=i, y=i, title=f"Line Chart of {i}")
             elif plot == "Scatter Plot":
                 fig = px.scatter(data, x=i, y=i, title=f"Scatter Plot of {i}")
-        
+        else:
+            #For categorical columns
+            plot=st.sidebar.selectbox("Select the chart type ",["Bar Chart","Pie Chart"])
+            if plot=="Bar Chart":
+                fig=px.bar(data,x=i,title=f"Bar Chart of {i}")
+            if plot=="Pie Chart":
+                fig=px.pie(data,names=i,title=f"Pie Chart of {i}")
         
         st.plotly_chart(fig)
 
